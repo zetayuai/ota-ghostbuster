@@ -50,11 +50,29 @@ button:disabled{opacity:.5;cursor:default}
 .quote{border-left:3px solid var(--accent);padding:4px 10px;margin:6px 0;color:var(--mute);font-size:13px}
 pre{background:var(--code);color:var(--codeink);border-radius:8px;padding:12px;white-space:pre-wrap;word-break:break-all;margin:0;font-size:12px}
 .row{display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.help summary{cursor:pointer;font-weight:700}.help p{margin:8px 0}.help ul{margin:6px 0 0;padding-left:20px}.help li{margin:3px 0}
+.help .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.help h4{margin:10px 0 2px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+@media(max-width:860px){.help .cols{grid-template-columns:1fr}}
 @media(max-width:860px){.main{grid-template-columns:1fr}.kpis,.steps{grid-template-columns:repeat(2,1fr)}.bar{grid-template-columns:130px 1fr 50px}}
 </style>
 <div class=wrap>
 <header><h1>OTA GhostBuster <span>autonomous ghost-device hunter</span></h1>
 <div class=pills><span class=pill id=pAgent></span><span class=pill id=pMem></span><span class=pill id=pLlm></span></div></header>
+<details class="card help" open style="margin-bottom:12px"><summary>What is this page? (click to hide)</summary>
+<div class=cols><div>
+<h4>Main focus</h4>
+<p>A bad OTA update can leave devices bricked and <b>silent</b>. Silent devices send nothing, so normal alerts never fire. This page shows an AI agent that <b>notices the silence on its own</b>, links it to the update that caused it, finds the root cause using HydraDB memory (OTA history + hardware manual), and <b>drafts an SMS rollback for your approval</b>.</p>
+<h4>Try it</h4>
+<ul><li>Click <b>Push bad OTA update</b> (right panel).</li><li>Watch the four steps turn green.</li><li>Read the incident, then <b>Approve</b>. Nothing is really sent in this demo.</li><li><b>Reset demo</b> starts over.</li></ul>
+</div><div>
+<h4>How to read it</h4>
+<ul><li><b>Top pills:</b> agent status, where memory lives (HydraDB or local mock), and which LLM reasons.</li>
+<li><b>Tiles:</b> fleet size, online, silent, open incidents.</li>
+<li><b>Four steps:</b> Detect, Recall, Reason, Draft. A green tick means done.</li>
+<li><b>Fleet map:</b> one box per device. Gray with a red dashed edge is silent. An orange underline is weak signal.</li>
+<li><b>Connection log:</b> latest connect and disconnect events with signal strength.</li>
+<li><b>Incident (right):</b> the root cause, then the evidence bars. A <b style="color:var(--bad)">red bar</b> is the group where almost every device went silent, which is the culprit. Below that are the manual entries recalled from HydraDB and the drafted SMS payload.</li></ul>
+</div></div></details>
 <section class=kpis id=kpis></section>
 <section class=steps id=steps></section>
 <div class=main>
